@@ -77,3 +77,40 @@ Después de que la lambda se encuentre con la imagen desplegada.
 2. Ingresar JSON de entrada
 ![](doc/assets/images/json_input.png "Json input")
 ```
+[distancia1, distancia2, distancia3] float32
+```
+3. Clic en "Probar"
+4. En la caja "Resultado de la ejecución" se puede ver la respuesta del modelo
+![](doc/assets/images/test_result.png "Test result")
+
+### ¿Como ejecutar lambda desde Java ###
+Se requiere la librería de aws-java-sdk
+
+```
+Maven:
+   <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>1.11.358</version>
+   </dependency>
+   
+Gradle:
+   implementation group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.358'
+```
+
+Código Java:
+```
+try {
+   InvokeRequest invokeRequest = new InvokeRequest()
+       .withFunctionName(functionName) //Nombre de la función lambda
+       .withPayload(request); //Request en formato String
+   InvokeResult invokeResult = null;
+   invokeResult = awsLambda.invoke(invokeRequest);
+   String response = new String(invokeResult.getPayload().array(), StandardCharsets.UTF_8);
+   logger.info("RESPONSE LAMBDA: " + response);
+   return response; //Respuesta de la lambda en formato String
+} catch (Exception e) {
+   e.printStackTrace();
+   return "anyString";
+}
+```
