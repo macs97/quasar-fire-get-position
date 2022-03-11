@@ -52,3 +52,28 @@ docker push accountNumber.dkr.ecr.us-east-1.amazonaws.com/quasar-fire-get-positi
 ```
 
 Con estos pasos la imagen ya se encuentra en ECR de AWS y está listo para la creación y ejecución de lambdas.
+
+### Crear lambda con imagen ya cargada ###
+1. Ingresamos a AWS Lambda a través de la consola web
+![](doc/assets/images/lambda_interface.png "Lambda interface")
+2. Damos clic en crear función
+![](doc/assets/images/create_lambda_function.png "Create lambda function")
+3. Diligenciar la información requerida así:
+    * Seleccionar la opción "Imagen del contenedor"
+    * Nombre de la función
+    * URI de imagen de contenedor. Clic en "Examinar imágenes" y buscar la imagen quasar-fire-get-position
+   ![](doc/assets/images/select_image_container.png "Select image container")
+    * Seleccionar la imagen con etiqueta latest y clic en "Seleccionar imagen"
+    * Arquitectura: x86_64
+    * Creación de un nuevo rol con permisos básicos de Lambda
+    * Clic en "Crear una función".
+
+Con esto se realiza la creación de la lambda utilizando la imagen ya cargada.
+
+### ¿Como probar? ###
+Después de que la lambda se encuentre con la imagen desplegada.
+1. Clic en probar
+![](doc/assets/images/clic_probar.png "Probar")
+2. Ingresar JSON de entrada
+![](doc/assets/images/json_input.png "Json input")
+```
